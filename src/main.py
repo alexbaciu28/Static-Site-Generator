@@ -1,8 +1,11 @@
 import os
 import shutil
+from utils import *
 
 dir_path_static = "./static"
 dir_path_public = "./public"
+dir_path_content = "./content"
+template_path = "./template.html"
 
 def copy_files_recursive(source_dir_path: str, dest_dir_path: str) -> None:
     if not os.path.exists(dest_dir_path):
@@ -17,6 +20,9 @@ def copy_files_recursive(source_dir_path: str, dest_dir_path: str) -> None:
         else:
             copy_files_recursive(from_path, dest_path)
 
+
+
+
 def main() -> None:
     print("Deleting public directory...")
     if os.path.exists(dir_path_public):
@@ -25,5 +31,7 @@ def main() -> None:
     print("Copying static files to public directory...")
     copy_files_recursive(dir_path_static, dir_path_public)
 
+    print("Generating content...")
+    generate_pages_recursive(dir_path_content, template_path, dir_path_public)
 
 main()
